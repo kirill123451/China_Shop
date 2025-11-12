@@ -1,0 +1,456 @@
+{
+    "data": [
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом новое",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г",
+            "hit" : true,
+            "novelty" : true
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом новое2",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г",
+            "novelty" : true
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом новое3",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г",
+            "hit" : true,
+            "novelty" : true
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г",
+            "hit" : true,
+            "novelty" : true
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г",
+            "hit" : true,
+            "novelty" : true
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г",
+            "hit" : true,
+            "novelty" : true
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г",
+            "hit" : true,
+            "novelty" : true
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г",
+            "hit" : true,
+            "novelty" : true
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г",
+            "novelty" : true
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г",
+            "hit" : true
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г"
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г",
+            "hit" : true
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г",
+            "hit" : true
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г"
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г",
+            "hit" : true
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г",
+            "hit" : true
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г",
+            "hit" : true
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г",
+            "hit" : true
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г",
+            "hit" : true
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г",
+            "hit" : true
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г",
+            "hit" : true
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г"
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г"
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г"
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г"
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г"
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г"
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г"
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г"
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г"
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г"
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г"
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г",
+            "hit" : true
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г",
+            "hit" : true
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г"
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г"
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г"
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г"
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г"
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г"
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г"
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г"
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г"
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г"
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г"
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г"
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г"
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г"
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г"
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г"
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г"
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г"
+        },
+        {
+            "type" : "chips",
+            "description" : "PRINGLES чипсы с томатным вкусом",
+            "photo" : "../public/yellowPringles.jpg",
+            "price" : 349,
+            "taste" : "tomato",
+            "weight" : "150г"
+        }
+    ]
+}

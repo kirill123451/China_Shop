@@ -1,0 +1,207 @@
+/* Novelty.css */
+.novelty-container {
+    max-width: 1300px;
+    padding: 20px 15px;
+    margin: 0 auto;
+}
+
+.novelty-container h2 {
+    text-align: center;
+    margin-bottom: 24px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #2d3748;
+}
+
+.novelty-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.novelty-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 15px;
+    border-radius: 12px;
+    background: #ffffff;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border: 1px solid #f1f1f1;
+    text-align: center;
+    height: fit-content;
+}
+
+.novelty-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.novelty-image {
+    width: 140px;
+    height: 140px;
+    object-fit: contain;
+    margin-bottom: 15px;
+    border-radius: 8px;
+}
+
+.novelty-text {
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    line-height: 1.4;
+    color: #2d3748;
+    margin-bottom: 10px;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.novelty-price {
+    font-size: 18px;
+    font-weight: 700;
+    color: #2d3748;
+    margin-bottom: 15px;
+}
+
+.novelty-button-addToCart {
+    width: 100%;
+    padding: 10px 15px;
+    background: #e92424;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 8px;
+}
+
+.novelty-button-addToCart:hover {
+    background: #f34747;
+    transform: translateY(-1px);
+}
+
+/* Стили для кнопки избранного (на будущее) */
+.novelty-button-addToFavorites {
+    width: 100%;
+    padding: 8px 15px;
+    background: transparent;
+    color: #6b7280;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.novelty-button-addToFavorites:hover {
+    background: #f9fafb;
+    border-color: #d1d5db;
+}
+
+/* Стили для ярлыков */
+.novelty-label-new {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(34, 197, 94, 0.9);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    z-index: 2;
+}
+
+.novelty-label-hit {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(239, 68, 68, 0.9);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    z-index: 2;
+}
+
+/* Планшеты */
+@media (max-width: 1024px) {
+    .novelty-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+    
+    .novelty-container h2 {
+        font-size: 24px;
+    }
+}
+
+/* Мобильные устройства */
+@media (max-width: 768px) {
+    .novelty-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+    
+    .novelty-card {
+        padding: 15px 10px;
+    }
+    
+    .novelty-image {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .novelty-text {
+        font-size: 13px;
+        min-height: 35px;
+    }
+    
+    .novelty-price {
+        font-size: 16px;
+    }
+    
+    .novelty-container h2 {
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+}
+
+/* Для очень маленьких мобильных */
+@media (max-width: 480px) {
+    .novelty-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+    
+    .novelty-card {
+        padding: 12px 8px;
+    }
+    
+    .novelty-image {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .novelty-text {
+        font-size: 12px;
+        min-height: 32px;
+    }
+    
+    .novelty-price {
+        font-size: 15px;
+    }
+    
+    .novelty-button-addToCart {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+}

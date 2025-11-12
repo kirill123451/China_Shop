@@ -1,0 +1,463 @@
+/* Основной контейнер */
+.Header-inline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2.5rem;
+    background: linear-gradient(135deg, #fff5f5 0%, #fff0f0 100%);
+    border-bottom: 3px solid #f3a9a9;
+    box-shadow: 0 4px 20px rgba(170, 97, 97, 0.15);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    min-height: 80px;
+    gap: 2rem;
+}
+
+/* Левая группа: логотип и каталог */
+.Header-left {
+    display: flex;
+    align-items: center;
+    gap: 10rem;
+    flex-shrink: 0;
+}
+
+/* Центральная группа: поиск */
+.Header-center {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    justify-content: center;
+    max-width: 800px;
+    margin: 0 2rem;
+}
+
+/* Правая группа: вход и корзина */
+.Header-right {
+    display: flex;
+    align-items: center;
+    gap: 8.5rem;
+    flex-shrink: 0;
+}
+
+/* Логотип */
+.Header-logo img {
+    height: 5.5rem;
+    width: auto;
+    transition: all 0.3s ease;
+    border-radius: 12px;
+}
+
+.Header-logo img:hover {
+    transform: scale(1.05) rotate(-2deg);
+}
+
+/* Базовые стили для всех кнопок */
+.Header-button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Кнопка каталога */
+.Header-button-catalog {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: white;
+    box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
+    padding: 0.75rem 1.5rem;
+}
+
+.Header-button-catalog:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
+}
+
+.catalog-icon {
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+}
+
+/* Кнопка входа */
+.Header-button-auth {
+    background: transparent;
+    color: #666;
+    box-shadow: none;
+    border: 1px solid #ddd;
+    padding: 0.6rem 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.Header-button-auth:hover {
+    background: rgba(0, 0, 0, 0.05);
+    transform: translateY(-1px);
+}
+
+.auth-icon-desktop {
+    width: 20px;
+    height: 20px;
+    display: block;
+}
+
+.auth-icon-mobile {
+    display: none;
+    width: 20px;
+    height: 20px;
+}
+
+/* Кнопка корзины */
+.Header-button-cart {
+    background: transparent;
+    padding: 0.5rem;
+    border: none;
+}
+
+.Header-button-cart:hover {
+    transform: translateY(-2px);
+}
+
+.Header-cart-img {
+    width: 2.5rem;
+    height: 2.5rem;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+/* Поиск для десктопа */
+.Header-search-desktop {
+    display: block;
+    width: 100%;
+    max-width: 500px;
+}
+
+.Header-search-desktop form {
+    display: flex;
+    width: 100%;
+}
+
+.Header-search-field {
+    flex: 1;
+    padding: 0.75rem 1.5rem;
+    border: 2px solid #ff6b6b;
+    border-radius: 25px 0 0 25px;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    background: white;
+    font-family: inherit;
+}
+
+.Header-search-field:focus {
+    border-color: #e74c3c;
+    box-shadow: 0 0 10px rgba(255, 107, 107, 0.3);
+}
+
+.Header-search-field::placeholder {
+    color: #bbb;
+    font-style: italic;
+}
+
+.Header-search-button {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: white;
+    box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
+    border-radius: 0 25px 25px 0;
+    padding: 0.75rem 1.5rem;
+    min-width: 120px;
+}
+
+.Header-search-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
+}
+
+.search-icon {
+    display: none;
+}
+
+/* Стили для мобильного поиска */
+.Header-search-mobile {
+    display: none;
+    position: relative;
+}
+
+.Header-search-toggle {
+    background: transparent;
+    color: #666;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.Header-search-toggle:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+/* Оверлей для мобильного поиска */
+.search-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 2000;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 100px;
+}
+
+.search-overlay-content {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.search-overlay-form {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.search-overlay-field {
+    flex: 1;
+    padding: 1rem 1.5rem;
+    border: 2px solid #ff6b6b;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    background: white;
+}
+
+.search-close-btn {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.search-close-btn:hover {
+    background: #c0392b;
+    transform: scale(1.1);
+}
+
+/* Адаптивность для планшетов */
+@media (max-width: 1024px) {
+    .Header-inline {
+        padding: 1rem 1.5rem;
+        gap: 1.5rem;
+    }
+    
+    .Header-left {
+        gap: 1.5rem;
+    }
+    
+    .Header-right {
+        gap: 1rem;
+    }
+    
+    .Header-center {
+        margin: 0 1rem;
+    }
+}
+
+/* Мобильная версия */
+@media (max-width: 768px) {
+    .Header-inline {
+        padding: 0.75rem 1rem;
+        min-height: 70px;
+        gap: 1rem;
+    }
+    
+    /* Скрываем десктопный поиск, показываем мобильный */
+    .Header-search-desktop {
+        display: none;
+    }
+    
+    .Header-search-mobile {
+        display: block;
+    }
+    
+    .Header-center {
+        display: none;
+    }
+    
+    /* Уменьшаем логотип */
+    .Header-logo img {
+        height: 3.5rem;
+    }
+    
+    /* Компактные кнопки для мобильных */
+    .Header-button {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    /* Скрываем текст в кнопках, показываем иконки */
+    .catalog-text {
+        display: none;
+    }
+    
+    .auth-text {
+        display: none;
+    }
+    
+    .auth-icon-desktop {
+        display: none;
+    }
+    
+    .auth-icon-mobile {
+        display: block;
+    }
+    
+    .search-text {
+        display: none;
+    }
+    
+    .search-icon {
+        display: block;
+    }
+    
+    /* Делаем кнопки более компактными */
+    .Header-button-catalog,
+    .Header-button-auth,
+    .Header-search-toggle {
+        padding: 0.6rem;
+        min-width: 2.8rem;
+        height: 2.8rem;
+        justify-content: center;
+    }
+    
+    .Header-button-cart {
+        padding: 0.4rem;
+    }
+    
+    .Header-cart-img {
+        width: 2.2rem;
+        height: 2.2rem;
+    }
+    
+    /* Уменьшаем gap между группами */
+    .Header-left {
+        gap: 0.75rem;
+    }
+    
+    .Header-right {
+        gap: 0.5rem;
+    }
+}
+
+/* Для маленьких экранов */
+@media (max-width: 480px) {
+    .Header-inline {
+        padding: 0.5rem 0.75rem;
+        min-height: 60px;
+        gap: 0.75rem;
+    }
+    
+    .Header-logo img {
+        height: 3rem;
+    }
+    
+    .Header-button {
+        padding: 0.5rem;
+        min-width: 2.5rem;
+        height: 2.5rem;
+    }
+    
+    .Header-cart-img {
+        width: 2rem;
+        height: 2rem;
+    }
+    
+    .Header-left {
+        gap: 0.5rem;
+    }
+    
+    .Header-right {
+        gap: 0.3rem;
+    }
+    
+    /* Еще более компактные кнопки */
+    .Header-button-catalog,
+    .Header-button-auth,
+    .Header-search-toggle {
+        min-width: 2.5rem;
+        height: 2.5rem;
+    }
+    
+    .search-overlay {
+        padding-top: 80px;
+    }
+    
+    .search-overlay-content {
+        width: 95%;
+        padding: 1rem;
+    }
+    
+    .search-overlay-field {
+        padding: 0.8rem 1.2rem;
+        font-size: 1rem;
+    }
+}
+
+/* Для очень маленьких устройств */
+@media (max-width: 360px) {
+    .Header-inline {
+        padding: 0.4rem 0.5rem;
+        gap: 0.5rem;
+    }
+    
+    .Header-logo img {
+        height: 2.5rem;
+    }
+    
+    .Header-button {
+        min-width: 2.3rem;
+        height: 2.3rem;
+        padding: 0.4rem;
+    }
+    
+    .Header-cart-img {
+        width: 1.8rem;
+        height: 1.8rem;
+    }
+}
+
+/* Фон с градиентными точками */
+.Header-inline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(255, 107, 107, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(39, 174, 96, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(155, 89, 182, 0.1) 0%, transparent 50%);
+    z-index: -1;
+    pointer-events: none;
+}

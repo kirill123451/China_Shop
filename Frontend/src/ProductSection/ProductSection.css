@@ -40,6 +40,10 @@
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
 }
 
+.product-section-card-link {
+    text-decoration: none;
+}
+
 .product-section-image {
     width: 140px;
     height: 140px;
@@ -58,6 +62,7 @@
     min-height: 40px;
     display: flex;
     align-items: center;
+    text-decoration: none;
 }
 
 .product-section-price {
@@ -65,6 +70,7 @@
     font-weight: 700;
     color: #2d3748;
     margin-bottom: 15px;
+    text-decoration: none;
 }
 
 .product-section-button-addToCart {
@@ -79,6 +85,7 @@
     cursor: pointer;
     transition: all 0.3s ease;
     margin-bottom: 8px;
+    text-decoration: none;
 }
 
 .product-section-button-addToCart:hover {

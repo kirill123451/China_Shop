@@ -1,4 +1,12 @@
-/* Основной контейнер */
+/* Основной контейнер хедера */
+.header-wrapper {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+    overflow: visible;
+}
+
 .Header-inline {
     display: flex;
     align-items: center;
@@ -7,10 +15,7 @@
     background: linear-gradient(135deg, #fff5f5 0%, #fff0f0 100%);
     border-bottom: 3px solid #f3a9a9;
     box-shadow: 0 4px 20px rgba(170, 97, 97, 0.15);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    backdrop-filter: blur(10px);
+    position: relative;
     min-height: 80px;
     gap: 2rem;
 }
@@ -21,6 +26,7 @@
     align-items: center;
     gap: 10rem;
     flex-shrink: 0;
+    position: relative; /* Добавлено */
 }
 
 /* Центральная группа: поиск */
@@ -86,6 +92,96 @@
 .catalog-icon {
     font-size: 1.2rem;
     margin-right: 0.5rem;
+}
+
+/* Контейнер для каталога с выпадающим меню */
+.Catalog-container {
+    position: relative;
+}
+
+/* ИСПРАВЛЕННЫЕ СТИЛИ ДЛЯ ВЫПАДАЮЩЕГО МЕНЮ */
+.Catalog-dropdown-wrapper {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%); /* Исправлено центрирование */
+    background: white;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    border-top: 2px solid #e74c3c;
+    z-index: 1001;
+    animation: fadeInDown 0.3s ease;
+    padding: 0;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Контент выпадающего меню */
+.catalog-dropdown-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    width: 100%;
+}
+
+/* СТИЛИ ДЛЯ КАТЕГОРИЙ В ХЕДЕРЕ - ИСПРАВЛЕНЫ */
+.categories-grid-header {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem 2rem;
+    position: relative; /* Добавлено */
+    z-index: 1002; /* Добавлено */
+}
+
+.category-item-header {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.category-card-link {
+    display: block; /* Важно! */
+    text-decoration: none; /* Важно! */
+    color: inherit; /* Важно! */
+    position: relative; /* Добавлено */
+    z-index: 1; /* Добавлено */
+}
+
+.category-link-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #333;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    padding: 0.3rem 0;
+    position: relative;
+    z-index: 2; /* Увеличено */
+}
+
+.category-link-header:hover {
+    color: #e74c3c;
+    transform: translateX(5px);
+}
+
+.category-image-header {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    border-radius: 4px;
+}
+
+.category-text-header {
+    font-weight: 500;
 }
 
 /* Кнопка входа */
@@ -263,35 +359,143 @@
     transform: scale(1.1);
 }
 
-/* Адаптивность для планшетов */
-@media (max-width: 1024px) {
-    .Header-inline {
-        padding: 1rem 1.5rem;
-        gap: 1.5rem;
-    }
-    
-    .Header-left {
-        gap: 1.5rem;
-    }
-    
-    .Header-right {
-        gap: 1rem;
-    }
-    
-    .Header-center {
-        margin: 0 1rem;
-    }
+/* Мобильное боковое меню каталога */
+.catalog-mobile-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    animation: fadeIn 0.3s ease;
 }
 
-/* Мобильная версия */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.Catalog-mobile-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 80%;
+    max-width: 300px;
+    height: 100%;
+    background: white;
+    z-index: 1000;
+    animation: slideInLeft 0.3s ease;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+@keyframes slideInLeft {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+}
+
+.catalog-mobile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 2px solid #f3a9a9;
+    background: linear-gradient(135deg, #fff5f5 0%, #fff0f0 100%);
+}
+
+.catalog-mobile-header h3 {
+    margin: 0;
+    color: #333;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.catalog-mobile-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #666;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.catalog-mobile-close:hover {
+    background: rgba(0, 0, 0, 0.1);
+    color: #333;
+}
+
+.catalog-mobile-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem 0;
+}
+
+/* Мобильная версия категорий в боковом меню - ОДИН СТОЛБИК */
+.catalog-mobile-content .categories-grid-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.catalog-mobile-content .category-item-header {
+    border-bottom: 1px solid #f0f0f0;
+    margin: 0;
+    width: 100%;
+}
+
+.catalog-mobile-content .category-card-link {
+    display: block;
+    width: 100%;
+}
+
+.catalog-mobile-content .category-link-header {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    gap: 1rem;
+    text-decoration: none;
+    color: #333;
+    transition: all 0.3s ease;
+    border: none;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.catalog-mobile-content .category-link-header:hover {
+    background: #fff5f5;
+    color: #e74c3c;
+    transform: none;
+}
+
+.catalog-mobile-content .category-text-header {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* Скрываем изображения в мобильной версии */
+.catalog-mobile-content .category-image-header {
+    display: none;
+}
+
+/* Для мобильных скрываем десктопное выпадающее меню каталога */
 @media (max-width: 768px) {
+    .Catalog-dropdown-wrapper {
+        display: none !important;
+    }
+    
+    /* Остальные мобильные стили остаются без изменений */
     .Header-inline {
         padding: 0.75rem 1rem;
         min-height: 70px;
         gap: 1rem;
     }
     
-    /* Скрываем десктопный поиск, показываем мобильный */
     .Header-search-desktop {
         display: none;
     }
@@ -304,18 +508,15 @@
         display: none;
     }
     
-    /* Уменьшаем логотип */
     .Header-logo img {
         height: 3.5rem;
     }
     
-    /* Компактные кнопки для мобильных */
     .Header-button {
         padding: 0.6rem 1rem;
         font-size: 0.9rem;
     }
     
-    /* Скрываем текст в кнопках, показываем иконки */
     .catalog-text {
         display: none;
     }
@@ -340,7 +541,6 @@
         display: block;
     }
     
-    /* Делаем кнопки более компактными */
     .Header-button-catalog,
     .Header-button-auth,
     .Header-search-toggle {
@@ -359,7 +559,6 @@
         height: 2.2rem;
     }
     
-    /* Уменьшаем gap между группами */
     .Header-left {
         gap: 0.75rem;
     }
@@ -369,95 +568,27 @@
     }
 }
 
-/* Для маленьких экранов */
-@media (max-width: 480px) {
-    .Header-inline {
-        padding: 0.5rem 0.75rem;
-        min-height: 60px;
-        gap: 0.75rem;
-    }
-    
-    .Header-logo img {
-        height: 3rem;
-    }
-    
-    .Header-button {
-        padding: 0.5rem;
-        min-width: 2.5rem;
-        height: 2.5rem;
-    }
-    
-    .Header-cart-img {
-        width: 2rem;
-        height: 2rem;
-    }
-    
-    .Header-left {
-        gap: 0.5rem;
-    }
-    
-    .Header-right {
-        gap: 0.3rem;
-    }
-    
-    /* Еще более компактные кнопки */
-    .Header-button-catalog,
-    .Header-button-auth,
-    .Header-search-toggle {
-        min-width: 2.5rem;
-        height: 2.5rem;
-    }
-    
-    .search-overlay {
-        padding-top: 80px;
-    }
-    
-    .search-overlay-content {
-        width: 95%;
-        padding: 1rem;
-    }
-    
-    .search-overlay-field {
-        padding: 0.8rem 1.2rem;
-        font-size: 1rem;
-    }
+/* Дополнительные исправления для кликабельности */
+.category-card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
 }
 
-/* Для очень маленьких устройств */
-@media (max-width: 360px) {
-    .Header-inline {
-        padding: 0.4rem 0.5rem;
-        gap: 0.5rem;
-    }
-    
-    .Header-logo img {
-        height: 2.5rem;
-    }
-    
-    .Header-button {
-        min-width: 2.3rem;
-        height: 2.3rem;
-        padding: 0.4rem;
-    }
-    
-    .Header-cart-img {
-        width: 1.8rem;
-        height: 1.8rem;
-    }
+.category-link-header {
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
 }
 
-/* Фон с градиентными точками */
-.Header-inline::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: 
-        radial-gradient(circle at 20% 80%, rgba(255, 107, 107, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(39, 174, 96, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(155, 89, 182, 0.1) 0%, transparent 50%);
-    z-index: -1;
-    pointer-events: none;
+/* Убедимся, что ссылки не перекрыты */
+.Catalog-dropdown-wrapper * {
+    pointer-events: auto;
+}
+
+.catalog-dropdown-content * {
+    pointer-events: auto;
 }

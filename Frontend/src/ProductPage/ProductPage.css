@@ -1,0 +1,246 @@
+.product-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+.product-page-not-found {
+  text-align: center;
+  font-size: 24px;
+  color: #666;
+  margin: 50px 0;
+}
+
+.product-page-main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.product-page-image-block {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.product-page-image {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.product-page-info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.product-page-text-title {
+  font-size: 32px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.product-page-text-price {
+  font-size: 28px;
+  font-weight: bold;
+  color: #e76f6f;
+}
+
+.product-page-add-to-cart {
+  background: #f73333;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  font-size: 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: bold;
+  max-width: 200px;
+}
+
+.product-page-add-to-cart:hover {
+  background: #f1625d;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(44, 90, 160, 0.3);
+}
+
+.product-page-text-health {
+  font-size: 18px;
+  font-weight: bold;
+  color: #444;
+  margin-top: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #eee;
+}
+
+.product-page-nutrition-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  margin: 15px 0;
+}
+
+.nutrition-item {
+  text-align: center;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+.nutrition-value {
+  display: block;
+  font-size: 20px;
+  font-weight: bold;
+  color: #f32f2f;
+}
+
+.nutrition-label {
+  display: block;
+  font-size: 14px;
+  color: #666;
+  margin-top: 5px;
+}
+
+.product-page-text-description,
+.product-page-text-compound {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #555;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #f75555;
+}
+
+.product-page-reviews-or-description {
+  margin-top: 40px;
+  border-top: 2px solid #eee;
+  padding-top: 30px;
+}
+
+.tab-buttons {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid #e9ecef;
+  margin-bottom: 30px;
+}
+
+.product-page-button-review,
+.product-page-button-description {
+  padding: 15px 30px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s ease;
+  color: #666;
+}
+
+.product-page-button-review.active,
+.product-page-button-description.active {
+  color:  #f75555;
+  border-bottom: 3px solid  #f75555;
+}
+
+.product-page-button-review:hover,
+.product-page-button-description:hover {
+  color: #f1625d;
+  background: #f8f9fa;
+}
+
+.tab-content {
+  min-height: 200px;
+  padding: 20px;
+}
+
+.reviews-content {
+  text-align: center;
+  color: #666;
+}
+
+.description-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.detail-item {
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #f75555;
+}
+
+.detail-label {
+  font-weight: bold;
+  color: #333;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.detail-value {
+  color: #555;
+}
+
+/* Бейджи для новинок и хитов */
+.product-badges {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.badge {
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.badge-new {
+  background: #10b981;
+  color: white;
+}
+
+.badge-hit {
+  background: #ef4444;
+  color: white;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .product-page-main {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .product-page-image {
+    max-width: 100%;
+  }
+  
+  .product-page-text-title {
+    font-size: 24px;
+  }
+  
+  .product-page-text-price {
+    font-size: 22px;
+  }
+  
+  .product-page-nutrition-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .tab-buttons {
+    flex-direction: column;
+  }
+}

@@ -1,6 +1,7 @@
-import { useState, useRef, useEffect, use } from 'react'  
+import { useState, useRef, useEffect } from 'react'  
 import logo from '../photo/Logo.png'  
 import './LoginButton.css'  
+import axios from 'axios'
 
 export default function LoginButton() {
     const [step, setStep] = useState<'phone' | 'code'>('phone')  
@@ -8,7 +9,9 @@ export default function LoginButton() {
     const [code, setCode] = useState('')  
     const [isLoading, setIsLoading] = useState(false)  
     const [error, setError] = useState('')
-    const [cleanPhoneNumber, setCleanPhoneNumber] = useState('')   
+    const [cleanPhoneNumber, setCleanPhoneNumber] = useState('')
+    const [uuid, setUuid] = useState('')  
+    const [logitStatus, setLoginStatus] = useState('unconfirmed')
     const phoneInputRef = useRef<HTMLInputElement>(null)
     
     useEffect(() => {
@@ -53,7 +56,7 @@ export default function LoginButton() {
         setError('')  
     }  
 
-    const handlePhoneSubmit = (e: React.FormEvent) => {
+    const handlePhoneSubmit = async(e: React.FormEvent) => {
         e.preventDefault()  
         const cleanPhone = getCleanPhone(phone)
         
@@ -62,6 +65,15 @@ export default function LoginButton() {
             setError('')  
             
             setCleanPhoneNumber(cleanPhone)
+
+            try {
+                const response = await axios.post('http://localhost:3000/phoneCheck', {
+                    phone: cleanPhone
+                })
+                setUuid(response.data.uuid)
+            }catch(e) {
+                console.log(axios.isAxiosError(e))
+            }
 
             setTimeout(() => {
                 setIsLoading(false)  
@@ -72,9 +84,19 @@ export default function LoginButton() {
         }
     }  
 
-    const handleCodeSubmit = (e: React.FormEvent) => {
+    const handleCodeSubmit = async(e: React.FormEvent) => {
         e.preventDefault()  
         if (code.length === 4) {
+            try {
+                const response = await axios.post('http://localhost:3000/codeCheck', {
+                    code : code,
+                    uuid : uuid
+                })
+                setLoginStatus(response.data.status)
+
+            }catch(e) {
+                console.log(axios.isAxiosError(e))
+            }
             setIsLoading(true)  
             setTimeout(() => {
                 setIsLoading(false)  
@@ -161,6 +183,7 @@ export default function LoginButton() {
                                     className="code-input"
                                     placeholder="1234"
                                     maxLength={4}
+                                    minLength={4}
                                     disabled={isLoading}
                                 />
                             </div>
@@ -189,6 +212,11 @@ export default function LoginButton() {
                                     <div className="spinner"></div>
                                 ) : (
                                     'Войти'
+                                )}
+                                {logitStatus !== 'unconfirmed' ? (
+                                    <div className="spinner">Статус Разрешен</div>
+                                ) : (
+                                    'Статус запрещен'
                                 )}
                             </button>
                         </div>

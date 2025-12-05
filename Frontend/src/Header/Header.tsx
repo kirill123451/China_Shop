@@ -4,16 +4,48 @@ import Logo from '../photo/Logo.png'
 import buttonCart from '../photo/buttonCart.png' 
 import LoginButton from '../photo/logIn.png' 
 import CategoriesForMainMenu from '../CategoriesForMainMenu/CategoriesForMainMenu'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
-export default function Header() {
+interface HeaderProps {
+    isAuthenticated: boolean
+    handleLogout: () => void
+}
+
+const Header: React.FC<HeaderProps> = ({ isAuthenticated, handleLogout }) => {
     const [searchData, setSearchData] = useState('') 
     const [isSearchVisible, setIsSearchVisible] = useState(false)
     const [isCatalogOpen, setIsCatalogOpen] = useState(false)
+    const [authState, setAuthState] = useState(!!localStorage.getItem('userId'))
     const searchInputRef = useRef<HTMLInputElement>(null)
     const catalogTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
     const headerRef = useRef<HTMLDivElement>(null)
     const catalogRef = useRef<HTMLDivElement>(null)
+    const navigate = useNavigate()
+
+    // Обновляем authState при изменении localStorage
+    useEffect(() => {
+        const checkAuth = () => {
+            setAuthState(!!localStorage.getItem('userId'))
+        }
+        
+        // Проверяем при монтировании
+        checkAuth()
+        
+        // Слушаем изменения в localStorage
+        const handleStorageChange = () => {
+            checkAuth()
+        }
+        
+        window.addEventListener('storage', handleStorageChange)
+        
+        // Также проверяем при каждом рендере для надежности
+        const interval = setInterval(checkAuth, 1000)
+        
+        return () => {
+            window.removeEventListener('storage', handleStorageChange)
+            clearInterval(interval)
+        }
+    }, [])
 
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault()
@@ -39,6 +71,16 @@ export default function Header() {
 
     const handleCategorySelect = () => {
         closeCatalog()
+    }
+
+    const handleLogoutClick = () => {
+        localStorage.removeItem('userId')
+        setAuthState(false) // Немедленно обновляем состояние
+        if (handleLogout) {
+            handleLogout() // Вызываем пропс если он передан
+        }
+        // Перезагружаем страницу для гарантированного обновления
+        window.location.reload()
     }
 
     useEffect(() => {
@@ -193,17 +235,26 @@ export default function Header() {
                         )}
                     </div>
 
-                    {/* Кнопка входа с иконкой */}
-                    <Link to={`/login`} >
+                    {/* Кнопка входа/выхода */}
                     <div className="Header-auth">
-                        <button className='Header-button Header-button-auth'>
-                            <img src={LoginButton} alt="Войти" className="auth-icon-desktop" />
-                            <span className="auth-text">Войти</span>
-                            <img src={LoginButton} alt="Войти" className="auth-icon-mobile" />
-                        </button>
+                        {authState ? (
+                            <button 
+                                className='Header-button Header-button-auth' 
+                                onClick={handleLogoutClick}
+                            >
+                                <span className="auth-text">Выйти</span>
+                            </button>
+                        ) : (
+                            <Link to={`/login`}>
+                                <button className='Header-button Header-button-auth'>
+                                    <img src={LoginButton} alt="Войти" className="auth-icon-desktop" />
+                                    <span className="auth-text">Войти</span>
+                                    <img src={LoginButton} alt="Войти" className="auth-icon-mobile" />
+                                </button>
+                            </Link>
+                        )}
                     </div>
-                    </Link>
-
+                    
                     {/* Корзина */}
                     <div className="Header-cart">
                         <button className='Header-button Header-button-cart'>
@@ -258,3 +309,5 @@ export default function Header() {
         </div>
     )
 }
+
+export default Header

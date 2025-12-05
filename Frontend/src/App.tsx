@@ -36,26 +36,53 @@ interface TestObjectData {
 
 const typedTestObject: TestObjectData = testObject as TestObjectData 
 
-// Layout с Header и Footer
-const LayoutWithHeaderFooter = () => (
+interface LayoutProps {
+    isAuthenticated: boolean;
+    handleLogout: () => void;
+}
+
+const LayoutWithHeaderFooter: React.FC<LayoutProps> = ({ isAuthenticated, handleLogout }) => (
   <>
-    <Header />
+    <Header isAuthenticated={isAuthenticated} handleLogout={handleLogout} />
     <Outlet /> {/* Здесь будут отображаться дочерние компоненты */}
     <Footer />
   </>
 )
 
 function App() {
-    const [basket, setBasket] = useState<Product[]>([]) 
+    const [basket, setBasket] = useState<Product[]>([])
+    const [isAuthenticated, setIsAuthenticated] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
+
+    useEffect(() => {
+        checkAuthStatus()
+    },[])
+
+    const checkAuthStatus = () => {
+        const userId = localStorage.getItem('userId')
+
+        if(userId) setIsAuthenticated(true)
+        else setIsAuthenticated(false)
+        setIsLoading(false)
+    }
+
+    const handleLogout = () => {
+        localStorage.removeItem('userId')
+        setIsAuthenticated(false)
+    } 
 
     useEffect(() => {
         console.log(basket) 
     }, [basket]) 
 
+    if(isLoading) {
+        return <div>Загрузка...</div>
+    }
+
     return (
         <BrowserRouter>
             <Routes>
-                <Route element={<LayoutWithHeaderFooter />}>
+                <Route element={<LayoutWithHeaderFooter isAuthenticated={isAuthenticated} handleLogout={handleLogout}/>}>
                     <Route path='/' element={
                         <>
                             <Carousel />

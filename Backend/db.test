@@ -1,0 +1,322 @@
+import express from 'express'
+import {phoneCheck, codeCheck} from './src/authorization/authController'
+import cors from 'cors'
+import * as dotenv from 'dotenv'
+import { Pool } from "pg"
+
+dotenv.config()
+
+const app = express()
+const PORT = 3000
+
+app.use(cors({
+    origin: ['http://localhost:5173'],
+    credentials: true
+}))
+
+app.use(express.json())
+
+// ========== ПОДКЛЮЧЕНИЕ К БД ==========
+console.log('🔧 Проверка переменных окружения:')
+console.log('DB_USER:', process.env.DB_USER || '❌ НЕ НАЙДЕНО')
+console.log('DB_HOST:', process.env.DB_HOST || '❌ НЕ НАЙДЕНО')
+console.log('DB_NAME:', process.env.DB_NAME || '❌ НЕ НАЙДЕНО')
+console.log('DB_PORT:', process.env.DB_PORT || '5432 (по умолчанию)')
+console.log('JWT_SECRET:', process.env.JWT_SECRET ? '✅ Есть' : '❌ НЕТ!')
+
+const pool = new Pool({
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    database: process.env.DB_NAME,
+    password: process.env.DB_PASSWORD,
+    port: parseInt(process.env.DB_PORT || '5432', 10),
+})
+
+// ========== ТЕСТОВЫЕ МАРШРУТЫ ДЛЯ БД ==========
+
+// 1. Проверка подключения к БД
+app.get('/test-db', async (req, res) => {
+    console.log('🧪 Запрос на /test-db')
+    try {
+        const result = await pool.query('SELECT NOW() as current_time, version() as pg_version')
+        res.json({
+            success: true,
+            message: '✅ Подключение к PostgreSQL работает!',
+            current_time: result.rows[0].current_time,
+            postgres_version: result.rows[0].pg_version
+        })
+    } catch (error: any) {
+        console.error('❌ Ошибка БД:', error.message)
+        res.status(500).json({
+            success: false,
+            error: error.message
+        })
+    }
+})
+
+// 2. СОЗДАНИЕ ТАБЛИЦЫ USERS С ВСЕМИ ПОЛЯМИ
+app.get('/create-users-table', async (req, res) => {
+    console.log('🛠 Создание таблицы users...')
+    try {
+        await pool.query(`
+            CREATE TABLE IF NOT EXISTS users (
+                id SERIAL PRIMARY KEY,
+                phone_number VARCHAR(20) UNIQUE NOT NULL,
+                created_at TIMESTAMP DEFAULT NOW(),
+                last_login TIMESTAMP DEFAULT NOW(),
+                role VARCHAR(50) DEFAULT 'user'
+            )
+        `)
+        
+        // Проверяем структуру созданной таблицы
+        const structure = await pool.query(`
+            SELECT column_name, data_type, is_nullable, column_default
+            FROM information_schema.columns
+            WHERE table_name = 'users'
+            ORDER BY ordinal_position
+        `)
+        
+        console.log('✅ Таблица users создана/проверена')
+        res.json({
+            success: true,
+            message: '✅ Таблица users создана или уже существует',
+            structure: structure.rows
+        })
+    } catch (error: any) {
+        console.error('❌ Ошибка создания таблицы:', error.message)
+        res.status(500).json({
+            success: false,
+            error: error.message
+        })
+    }
+})
+
+// 3. ТЕСТ findOrCreateUser ФУНКЦИИ (имитация работы authController)
+app.post('/test-find-or-create', async (req, res) => {
+    console.log('🧪 Тест функции findOrCreateUser...')
+    try {
+        const { phone_number } = req.body
+        
+        if (!phone_number) {
+            return res.status(400).json({ error: 'Укажите phone_number' })
+        }
+        
+        console.log('📞 Телефон для создания:', phone_number)
+        
+        // Воспроизводим ВАШУ функцию findOrCreateUser
+        const query = `
+            INSERT INTO users (phone_number, last_login, role)
+            VALUES ($1, NOW(), 'user')
+            ON CONFLICT (phone_number)
+            DO UPDATE SET last_login = NOW()
+            RETURNING id, phone_number, created_at, last_login, role
+        `
+        const values = [phone_number]
+
+        console.log('🚀 Выполняем запрос к БД...')
+        const result = await pool.query(query, values)
+        console.log('✅ Результат запроса:', result.rows[0])
+        
+        res.json({
+            success: true,
+            message: '✅ Пользователь создан/обновлен',
+            user: result.rows[0]
+        })
+    } catch (error: any) {
+        console.error('❌ Ошибка в test-find-or-create:')
+        console.error('Сообщение:', error.message)
+        console.error('Код ошибки:', error.code)
+        console.error('Детали:', error.detail)
+        
+        res.status(500).json({
+            success: false,
+            error: error.message,
+            code: error.code,
+            detail: error.detail
+        })
+    }
+})
+
+// 4. ПОСМОТРЕТЬ ВСЕХ ПОЛЬЗОВАТЕЛЕЙ
+app.get('/all-users', async (req, res) => {
+    console.log('👥 Получение всех пользователей...')
+    try {
+        const result = await pool.query(`
+            SELECT id, phone_number, 
+                   created_at, 
+                   last_login,
+                   role,
+                   EXTRACT(EPOCH FROM (NOW() - created_at)) as seconds_since_creation
+            FROM users 
+            ORDER BY created_at DESC
+        `)
+        
+        res.json({
+            success: true,
+            count: result.rowCount,
+            users: result.rows
+        })
+    } catch (error: any) {
+        console.error('❌ Ошибка получения пользователей:', error.message)
+        res.status(500).json({
+            success: false,
+            error: error.message
+        })
+    }
+})
+
+// 5. ОЧИСТИТЬ ТАБЛИЦУ (для тестов)
+app.delete('/clear-users', async (req, res) => {
+    console.log('🧹 Очистка таблицы users...')
+    try {
+        const result = await pool.query('DELETE FROM users RETURNING *')
+        res.json({
+            success: true,
+            message: `✅ Удалено ${result.rowCount} пользователей`,
+            deleted_users: result.rows
+        })
+    } catch (error: any) {
+        console.error('❌ Ошибка очистки таблицы:', error.message)
+        res.status(500).json({
+            success: false,
+            error: error.message
+        })
+    }
+})
+
+// 6. ГЛАВНАЯ СТРАНИЦА С ССЫЛКАМИ
+app.get('/', (req, res) => {
+    res.send(`
+        <html>
+        <head>
+            <title>Тестовый сервер БД</title>
+            <style>
+                body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
+                .container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+                h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+                .section { margin: 25px 0; }
+                .btn { 
+                    display: inline-block; 
+                    padding: 10px 15px; 
+                    margin: 5px; 
+                    background: #3498db; 
+                    color: white; 
+                    text-decoration: none; 
+                    border-radius: 5px; 
+                    border: none;
+                    cursor: pointer;
+                    font-size: 14px;
+                }
+                .btn:hover { background: #2980b9; }
+                .btn-danger { background: #e74c3c; }
+                .btn-danger:hover { background: #c0392b; }
+                .btn-success { background: #2ecc71; }
+                .btn-success:hover { background: #27ae60; }
+                .test-form { background: #f8f9fa; padding: 15px; border-radius: 5px; margin: 15px 0; }
+                input { padding: 8px; margin: 5px; width: 200px; }
+                .api-test { margin-top: 20px; }
+                pre { background: #2c3e50; color: #ecf0f1; padding: 15px; border-radius: 5px; overflow-x: auto; }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <h1>🛠 Тестовый сервер БД</h1>
+                <p>Порт: ${PORT}</p>
+                
+                <div class="section">
+                    <h2>📊 Управление БД:</h2>
+                    <a href="http://localhost:3000/test-db" class="btn" target="_blank">✅ Тест подключения</a>
+                    <a href="http://localhost:3000/create-users-table" class="btn" target="_blank">🛠 Создать таблицу</a>
+                    <a href="http://localhost:3000/all-users" class="btn" target="_blank">👥 Все пользователи</a>
+                    <a href="http://localhost:3000/clear-users" class="btn btn-danger" target="_blank" onclick="return confirm('Точно очистить таблицу?')">🧹 Очистить таблицу</a>
+                </div>
+                
+                <div class="section">
+                    <h2>🧪 Тест создания пользователя:</h2>
+                    <div class="test-form">
+                        <input type="text" id="phoneInput" placeholder="79991234567" value="79991234567">
+                        <button class="btn btn-success" onclick="createUser()">Создать пользователя</button>
+                        <div id="result" style="margin-top: 10px;"></div>
+                    </div>
+                </div>
+                
+                <div class="section api-test">
+                    <h2>📡 API маршруты (POST):</h2>
+                    <pre>POST /phoneCheck
+Content-Type: application/json
+{ "phone": "79991234567" }
+
+POST /codeCheck  
+Content-Type: application/json
+{ 
+  "code": "1234", 
+  "uuid": "test-uuid", 
+  "phone_number": "79991234567" 
+}</pre>
+                </div>
+            </div>
+            
+            <script>
+                async function createUser() {
+                    const phone = document.getElementById('phoneInput').value;
+                    const resultDiv = document.getElementById('result');
+                    
+                    if (!phone) {
+                        resultDiv.innerHTML = '<span style="color: red;">Введите номер телефона</span>';
+                        return;
+                    }
+                    
+                    resultDiv.innerHTML = '⏳ Отправка запроса...';
+                    
+                    try {
+                        const response = await fetch('/test-find-or-create', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ phone_number: phone })
+                        });
+                        
+                        const data = await response.json();
+                        
+                        if (data.success) {
+                            resultDiv.innerHTML = \`
+                                <span style="color: green;">✅ Успешно!</span><br>
+                                ID: \${data.user.id}<br>
+                                Телефон: \${data.user.phone_number}<br>
+                                Создан: \${new Date(data.user.created_at).toLocaleString()}<br>
+                                Роль: \${data.user.role}
+                            \`;
+                        } else {
+                            resultDiv.innerHTML = \`<span style="color: red;">❌ Ошибка: \${data.error}</span>\`;
+                        }
+                    } catch (error) {
+                        resultDiv.innerHTML = \`<span style="color: red;">❌ Ошибка сети: \${error.message}</span>\`;
+                    }
+                }
+            </script>
+        </body>
+        </html>
+    `)
+})
+
+// ========== ОСНОВНЫЕ МАРШРУТЫ API ==========
+app.post('/phoneCheck', phoneCheck)
+app.post('/codeCheck', codeCheck)
+
+// ========== ЗАПУСК СЕРВЕРА ==========
+app.listen(PORT, () => {
+    console.log('\n' + '='.repeat(60))
+    console.log(`🚀 СЕРВЕР ЗАПУЩЕН НА ПОРТУ ${PORT}`)
+    console.log('='.repeat(60))
+    console.log('\n📡 ОТКРОЙТЕ В БРАУЗЕРЕ:')
+    console.log(`👉 http://localhost:${PORT}`)
+    console.log('\n🧪 ТЕСТОВЫЕ МАРШРУТЫ БД:')
+    console.log(`   • http://localhost:${PORT}/test-db`)
+    console.log(`   • http://localhost:${PORT}/create-users-table`)
+    console.log(`   • http://localhost:${PORT}/all-users`)
+    console.log(`   • http://localhost:${PORT}/clear-users`)
+    console.log('\n📱 API МАРШРУТЫ:')
+    console.log(`   • POST /phoneCheck`)
+    console.log(`   • POST /codeCheck`)
+    console.log(`   • POST /test-find-or-create`)
+    console.log('\n' + '='.repeat(60))
+})

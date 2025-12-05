@@ -2,6 +2,9 @@ import { useState, useRef, useEffect } from 'react'
 import logo from '../photo/Logo.png'  
 import './LoginButton.css'  
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+
+axios.defaults.withCredentials = true
 
 export default function LoginButton() {
     const [step, setStep] = useState<'phone' | 'code'>('phone')  
@@ -11,8 +14,9 @@ export default function LoginButton() {
     const [error, setError] = useState('')
     const [cleanPhoneNumber, setCleanPhoneNumber] = useState('')
     const [uuid, setUuid] = useState('')  
-    const [logitStatus, setLoginStatus] = useState('unconfirmed')
+    const [loginStatus, setLoginStatus] = useState('unconfirmed') // Исправлена опечатка
     const phoneInputRef = useRef<HTMLInputElement>(null)
+    const navigate = useNavigate() // Хук вызывается на верхнем уровне
     
     useEffect(() => {
         if(cleanPhoneNumber) {
@@ -71,14 +75,13 @@ export default function LoginButton() {
                     phone: cleanPhone
                 })
                 setUuid(response.data.uuid)
+                setIsLoading(false)  
+                setStep('code') 
             }catch(e) {
                 console.log(axios.isAxiosError(e))
+                setIsLoading(false)
             }
 
-            setTimeout(() => {
-                setIsLoading(false)  
-                setStep('code')  
-            }, 1500)  
         } else {
             setError('Введите корректный номер телефона')  
         }
@@ -90,18 +93,17 @@ export default function LoginButton() {
             try {
                 const response = await axios.post('http://localhost:3000/codeCheck', {
                     code : code,
-                    uuid : uuid
+                    uuid : uuid,
+                    phone_number: cleanPhoneNumber
                 })
-                setLoginStatus(response.data.status)
-
+                localStorage.setItem('userId', response.data.userId)
+                console.log(response.status)
+                setLoginStatus('confirmed')
+                navigate('/') 
             }catch(e) {
-                console.log(axios.isAxiosError(e))
+                console.log(axios.isAxiosError(e),e)
+                setError('Неверный код')
             }
-            setIsLoading(true)  
-            setTimeout(() => {
-                setIsLoading(false)  
-                console.log('Успешная авторизация!')  
-            }, 1500)  
         } else {
             setError('Введите 4-значный код')  
         }
@@ -157,7 +159,6 @@ export default function LoginButton() {
                                 <div className="spinner"></div>
                             ) : (
                                 'Получить код'
-                                
                             )}
                         </button>
                     </form>
@@ -212,11 +213,6 @@ export default function LoginButton() {
                                     <div className="spinner"></div>
                                 ) : (
                                     'Войти'
-                                )}
-                                {logitStatus !== 'unconfirmed' ? (
-                                    <div className="spinner">Статус Разрешен</div>
-                                ) : (
-                                    'Статус запрещен'
                                 )}
                             </button>
                         </div>

@@ -17,7 +17,7 @@
   },
   "include": [
     "**/*.ts"
-, "server.tsx"  ],
+, "server.tsx", "db_test.ts"  ],
   "exclude": [
     "node_modules",
     "dist"
